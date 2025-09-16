@@ -9,7 +9,7 @@ export const Input = () => {
   return (
     <div className="p-2">
         <input
-          className="border p-2 rounded-2xl w-full"
+          className="w-full p-2 rounded border border-gray-300 focus:border-blue-400 shadow-sm"
           type="text"
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
