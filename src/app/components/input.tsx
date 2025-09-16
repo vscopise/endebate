@@ -14,6 +14,7 @@ export const Input = () => {
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
           autoFocus
+          placeholder="Ingresa algún participante"
         />
     </div>
   );
