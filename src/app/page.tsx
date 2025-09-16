@@ -4,7 +4,7 @@ import { ListadoParticipantes } from "./components/listado-participantes";
 
 export default async function Home() {
   return (
-    <div className="font-sans h-screen flex flex-col">
+    <div className="font-sans h-screen flex flex-col bg-white">
       <ListadoParticipantes />
       <Input />
       <Result />
