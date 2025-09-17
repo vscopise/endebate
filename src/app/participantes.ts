@@ -33,7 +33,7 @@ export const participantes = [
   "José Batalla",
   "José Alberto Saune",
   "Juan Da Silva",
-  "Julio Jorge Spoturno",
+  "Jorge Spoturno",
   "Leo Uranga",
   "Leonardo Vezzoso",
   "Leticia Lopez",
@@ -68,7 +68,7 @@ export const participantes = [
   "Tamara Machain",
   "Teresita Larrea",
   "Teresita Palomeque",
-  "Vicente",
+  "Vicente Scópise",
   "Viviana Hirsch",
   "Waldemar Garcia",
 ];

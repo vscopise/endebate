@@ -3,6 +3,7 @@
 import { useShallow } from "zustand/shallow";
 import { useAppStore } from "../store";
 import { Timer } from "./timer";
+import { useState } from "react";
 
 export const ListadoParticipantes = () => {
   const { seleccionados, delSeleccionado } = useAppStore(
@@ -17,7 +18,7 @@ export const ListadoParticipantes = () => {
       {seleccionados.length === 0
         ? null
         : seleccionados.map((p, index) => {
-            var classText = index === 0 ? "text-4xl" : "text-2xl";
+            var classText = index === 0 ? "text-4xl font-bold" : "text-3xl";
             classText =
               index > 1
                 ? "text-gray-400 text-xl"

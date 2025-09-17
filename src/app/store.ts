@@ -30,6 +30,7 @@ export const useAppStore = create<AppState>()(
         if (!seleccionados.includes(p)) {
           const nuevos = [...seleccionados, p];
           set({ seleccionados: nuevos });
+          set({texto: ""});
 
           // 🚀 Arrancar contador si es el primer seleccionado
           if (nuevos.length === 1 && !startTime) {
@@ -47,18 +48,16 @@ export const useAppStore = create<AppState>()(
 
         set({ seleccionados: nuevos });
 
-        // si ya no quedan seleccionados, detener contador y resetear
+        // si es el primero, detener contador y resetear
         if ((esPrimero )) {
           //set({ startTime: null });
           set({ startTime: Date.now() });
         }
 
-        // si ya no quedan seleccionados, detener contador y resetear
+        // si ya no quedan seleccionados, borrar el contador
         if ((nuevos.length === 0)) {
           set({ startTime: null });
-          //set({ startTime: Date.now() });
         }
-        //set({ startTime: Date.now() });
       },
 
       getSeconds: () => {
