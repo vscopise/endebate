@@ -57,6 +57,7 @@ export const participantes = [
   "Rafael Langelotti",
   "Ricardo Bica",
   "Ricardo Fierro",
+  "María Rola Santana",
   "Romina Radeca",
   "Ruben Dario Diaz",
   "Sandra Artigas",
