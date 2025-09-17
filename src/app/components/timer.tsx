@@ -31,7 +31,7 @@ export const Timer = () => {
   }
 
   return (
-    <div className={`w-auto px-2 text-white rounded-xl ml-2 ${bg}`}>
+    <div className={`w-auto px-2 text-white rounded-xl ml-2 text-2xl ${bg}`}>
       {`${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
         2,
         "0"

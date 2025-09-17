@@ -48,9 +48,15 @@ export const useAppStore = create<AppState>()(
         set({ seleccionados: nuevos });
 
         // si ya no quedan seleccionados, detener contador y resetear
-        if ((esPrimero || nuevos.length === 0)) {
-          set({ startTime: null });
+        if ((esPrimero )) {
+          //set({ startTime: null });
           set({ startTime: Date.now() });
+        }
+
+        // si ya no quedan seleccionados, detener contador y resetear
+        if ((nuevos.length === 0)) {
+          set({ startTime: null });
+          //set({ startTime: Date.now() });
         }
         //set({ startTime: Date.now() });
       },
