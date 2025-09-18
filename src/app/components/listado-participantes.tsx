@@ -3,7 +3,6 @@
 import { useShallow } from "zustand/shallow";
 import { useAppStore } from "../store";
 import { Timer } from "./timer";
-import { useState } from "react";
 
 export const ListadoParticipantes = () => {
   const { seleccionados, delSeleccionado } = useAppStore(
