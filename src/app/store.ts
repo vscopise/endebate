@@ -73,9 +73,7 @@ export const useAppStore = create<AppState>()(
       error: null,
       fetchData: async () => {
         set({ loading: true, error: null });
-        const url = process.env.ADHERENTES;
         try {
-          console.log('hola')
           const response = await fetch(`${ADHERENTES}`);
 
           const csvText = await response.text();
