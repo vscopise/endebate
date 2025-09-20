@@ -12,16 +12,23 @@ export const Result = () => {
     }))
   );
 
-  
+  // Función para normalizar y eliminar acentos de un string
+  const normalizarString = (str: string) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  };
 
   const resultados =
     texto.trim() === ""
       ? []
-      : datos.filter((p) => p.toLowerCase().includes(texto.toLowerCase()));
+      : datos.filter((p) =>
+          normalizarString(p).includes(normalizarString(texto))
+        );
 
   return (
     <div className="flex-1 overflow-y-auto">
-
       <div className="flex w-full flex-wrap justify-center gap-2 ">
         {resultados.length === 0
           ? null

@@ -17,16 +17,16 @@ export const ListadoParticipantes = () => {
       {seleccionados.length === 0
         ? null
         : seleccionados.map((p, index) => {
-            var classText = index === 0 ? "text-4xl font-bold" : "text-3xl";
+            var classText = index === 0 ? "font-bold" : "";
             classText =
               index > 1
-                ? "text-gray-400 text-xl"
+                ? "text-gray-400 text-3xl"
                 : `text-gray-900 ${classText}`;
 
             return (
               <div
-                className={`flex flex-col items-center justify-center sm:flex-row cursor-pointer ${
-                  index === 0 ? "mb-2" : "mb-0"
+                className={`flex flex-col items-center justify-center sm:flex-row text-4xl cursor-pointer ${
+                  index === 0 ? "mb-4 border-2 border-gray-400 p-2 rounded-md" : "mb-0"
                 }`}
                 key={index}
                 onClick={() => delSeleccionado(p)}

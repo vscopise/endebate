@@ -82,8 +82,6 @@ export const useAppStore = create<AppState>()(
             .split("\r\n")
             .filter((line) => line.trim() !== ""); // Separa por líneas y elimina
 
-            console.log({datos})
-
           set({ datos: datos, loading: false});
         } catch (err: any) {
           set({ error: err.message, loading: false });
