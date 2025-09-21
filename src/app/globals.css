@@ -5,6 +5,16 @@
   --foreground: #171717;
 }
 
+@theme {
+  --animate-expand: expand 0.4s ease-in-out;
+
+  @keyframes expand {
+    0% { transform: scaleX(0.5) },
+    50% { transform: scaleX(2) },
+    100% { transform: scaleX(1) }
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
