@@ -4,11 +4,12 @@ import { useShallow } from "zustand/shallow";
 import { useAppStore } from "../store";
 
 export const Result = () => {
-  const { texto, datos, addSeleccionado } = useAppStore(
+  const { texto, datos, addSeleccionado, comite } = useAppStore(
     useShallow((state) => ({
       texto: state.texto,
       datos: state.datos,
       addSeleccionado: state.addSeleccionado,
+      comite: state.comite,
     }))
   );
 
@@ -20,11 +21,16 @@ export const Result = () => {
       .toLowerCase();
   };
 
+  const adherentes =
+    comite === "" ? datos : datos.filter((c) => c[1] === comite);
+
+    console.log({adherentes})
+
   const resultados =
     texto.trim() === ""
       ? []
-      : datos.filter((p) =>
-          normalizarString(p).includes(normalizarString(texto))
+      : adherentes.filter((p) =>
+          normalizarString(p[0]).includes(normalizarString(texto))
         );
 
   return (
@@ -36,9 +42,9 @@ export const Result = () => {
               <div
                 className="inline-flex rounded-md bg-slate-800 py-0.5 px-2.5 border border-transparent text-xl text-white transition-all shadow-sm cursor-pointer"
                 key={index}
-                onClick={() => addSeleccionado(item)}
+                onClick={() => addSeleccionado(item[0])}
               >
-                {item}
+                {item[0]}
               </div>
             ))}
       </div>

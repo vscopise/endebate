@@ -4,7 +4,9 @@ import { persist } from "zustand/middleware";
 interface AppState {
   texto: string;
   setTexto: (v: string) => void;
-  datos: string[];
+  datos: string[][];
+  comite: string;
+  setComite: (c: string) => void;
   seleccionados: string[];
   addSeleccionado: (p: string) => void;
   delSeleccionado: (p: string) => void;
@@ -18,14 +20,14 @@ interface AppState {
 const ADHERENTES = process.env.NEXT_PUBLIC_ADHERENTES;
 
 export const useAppStore = create<AppState>()(
-  
   persist(
     (set, get) => ({
       texto: "",
       setTexto: (v) => set({ texto: v }),
       seleccionados: [],
       startTime: null,
-
+      comite: "",
+      setComite: (c) => set({ comite: c }),
       addSeleccionado: (p) => {
         const { seleccionados, startTime } = get();
 
@@ -78,11 +80,10 @@ export const useAppStore = create<AppState>()(
 
           const csvText = await response.text();
 
-          const datos = csvText
-            .split("\r\n")
-            .filter((line) => line.trim() !== ""); // Separa por líneas y elimina
+          const datos = csvText.split("\r\n").map((row) => row.split(","));
+          // .filter((line) => line.trim() !== ""); // Separa por líneas y elimina
 
-          set({ datos: datos, loading: false});
+          set({ datos: datos, loading: false });
         } catch (err: any) {
           set({ error: err.message, loading: false });
         }
