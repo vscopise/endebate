@@ -5,10 +5,11 @@ import { useAppStore } from "../store";
 import Link from "next/link";
 
 export default function SelectComite() {
-  const { datos, setComite } = useAppStore(
+  const { datos, setComite, comite } = useAppStore(
     useShallow((state) => ({
       datos: state.datos,
       setComite: state.setComite,
+      comite: state.comite,
     }))
   );
 
@@ -22,8 +23,10 @@ export default function SelectComite() {
       >
         <option value="">Seleccione un Comité</option>
         <option value="">Todos</option>
-        {comites.map((comite) => (
-          <option key={comite}>{comite}</option>
+        {comites.map((c) => (
+          <option key={c} selected={c === comite}>
+            {c}
+          </option>
         ))}
       </select>
       <div className="text-center py-6">
