@@ -6,15 +6,28 @@ interface AppState {
   setTexto: (v: string) => void;
   datos: string[][];
   comite: string;
+  // Comite se usa para filtrar los datos según el Comité donde se ejecuta la aplicación
   setComite: (c: string) => void;
+  // seleccionados es la lista de oradorers
   seleccionados: string[];
   addSeleccionado: (p: string) => void;
   delSeleccionado: (p: string) => void;
+  //los parlanchines son las personas que han hablado
+  parlanchines: Parlanchin[];
+  //parlanchines: string[];
+  addParlanchin: (p: string) => void;
+  delParlanchin: (p: string) => void;
+  delIntervencion: (p: string) => void;
   startTime: number | null; // timestamp de inicio
   getSeconds: () => number; // calcula segundos transcurridos
   loading: boolean;
   error: string | null;
   fetchData: () => Promise<void>;
+}
+
+interface Parlanchin {
+  nombre: string;
+  intervenciones: number;
 }
 
 const ADHERENTES = process.env.NEXT_PUBLIC_ADHERENTES;
@@ -25,9 +38,12 @@ export const useAppStore = create<AppState>()(
       texto: "",
       setTexto: (v) => set({ texto: v }),
       seleccionados: [],
+      parlanchines: [],
       startTime: null,
       comite: "",
+
       setComite: (c) => set({ comite: c }),
+
       addSeleccionado: (p) => {
         const { seleccionados, startTime } = get();
 
@@ -62,6 +78,49 @@ export const useAppStore = create<AppState>()(
         // si ya no quedan seleccionados, borrar el contador
         if (nuevos.length === 0) {
           set({ startTime: null });
+        }
+      },
+
+      addParlanchin: (p) => {
+        const { parlanchines } = get();
+
+        if (!parlanchines.some((el) => el.nombre === p)) {
+          set({
+            parlanchines: [...parlanchines, { nombre: p, intervenciones: 1 }],
+          });
+        } else {
+          set({
+            parlanchines: parlanchines.map((el) =>
+              el.nombre === p
+                ? { ...el, intervenciones: el.intervenciones + 1 }
+                : el
+            ),
+          });
+        }
+      },
+
+      delParlanchin: (p) => {
+        const { parlanchines } = get();
+        set({ parlanchines: parlanchines.filter((item) => item.nombre !== p) });
+      },
+
+      delIntervencion: (p) => {
+        const { parlanchines } = get();
+
+        if (parlanchines.some((el) => el.nombre === p)) {
+          if (
+            1 < parlanchines.filter((el) => el.nombre === p)[0].intervenciones
+          ) {
+            set({
+              parlanchines: parlanchines.map((el) =>
+                el.nombre === p
+                  ? { ...el, intervenciones: el.intervenciones - 1 }
+                  : el
+              ),
+            });
+          } else {
+            set({ parlanchines: parlanchines.filter((el) => el.nombre !== p) });
+          }
         }
       },
 
