@@ -15,9 +15,8 @@ export const Result = () => {
   );
 
   const processSeleccionado = (sel: string) => {
-    //console.log({sel});
-    addSeleccionado(sel);
     addParlanchin(sel);
+    addSeleccionado(sel);
   }
 
   // Función para normalizar y eliminar acentos de un string
@@ -30,8 +29,6 @@ export const Result = () => {
 
   const adherentes =
     comite === "" ? datos : datos.filter((c) => c[1] === comite);
-
-    console.log({adherentes})
 
   const resultados =
     texto.trim() === ""
@@ -50,7 +47,6 @@ export const Result = () => {
                 className="inline-flex rounded-md bg-slate-800 py-0.5 px-2.5 border border-transparent text-xl text-white transition-all shadow-sm cursor-pointer"
                 key={index}
                 onClick={() => processSeleccionado(item[0])}
-                //onClick={() => addSeleccionado(item[0])}
               >
                 {item[0]}
               </div>

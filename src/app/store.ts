@@ -8,15 +8,17 @@ interface AppState {
   comite: string;
   // Comite se usa para filtrar los datos según el Comité donde se ejecuta la aplicación
   setComite: (c: string) => void;
+
   // seleccionados es la lista de oradorers
   seleccionados: string[];
   addSeleccionado: (p: string) => void;
   delSeleccionado: (p: string) => void;
+
   //los parlanchines son las personas que han hablado
   parlanchines: Parlanchin[];
-  //parlanchines: string[];
   addParlanchin: (p: string) => void;
   delParlanchin: (p: string) => void;
+
   delIntervencion: (p: string) => void;
   startTime: number | null; // timestamp de inicio
   getSeconds: () => number; // calcula segundos transcurridos
@@ -82,7 +84,10 @@ export const useAppStore = create<AppState>()(
       },
 
       addParlanchin: (p) => {
-        const { parlanchines } = get();
+        const { parlanchines, seleccionados } = get();
+
+        // No contabilizar si ya est+a en la lista de oradores
+        if (seleccionados.some((el) => el === p)) return;
 
         if (!parlanchines.some((el) => el.nombre === p)) {
           set({

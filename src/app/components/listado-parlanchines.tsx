@@ -22,8 +22,8 @@ export const ListadoParlanchines = () => {
             key={index}
             className={`cursor-pointer ${
                 p.intervenciones > 1 
-                ? "text-red-500 font-bold text-lg"
-                : "text-gray-500"
+                ? "text-red-500 font-bold text-xl"
+                : "text-gray-800"
             }`}
             onClick={() => delParlanchin(p.nombre)}
           >
