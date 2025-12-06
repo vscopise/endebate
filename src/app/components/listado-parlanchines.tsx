@@ -14,9 +14,9 @@ export const ListadoParlanchines = () => {
   if (parlanchines.length === 0) return null;
 
   return (
-    <div className="flex-1 overflow-y-auto">
-      <p className="font-bold text-amber-500 text-center">Parlanchines:</p>
-      <div className="flex w-full flex-wrap justify-center gap-2  bg-amber-50 rounded-xl border border-amber-500 p-2">
+    <div className="overflow-y-auto bg-amber-50 border border-amber-500 rounded-xl mt-2 mx-2">
+      <p className="font-bold text-amber-500 text-center py-1">Parlanchines:</p>
+      <div className="flex w-full flex-wrap justify-center gap-2  px-2 pb-2">
         {parlanchines.map((p, index) => (
           <div
             key={index}
