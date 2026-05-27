@@ -39,9 +39,12 @@ export const useAppStore = create<AppState>()(
     (set, get) => ({
       texto: "",
       setTexto: (v) => set({ texto: v }),
+
       seleccionados: [],
       parlanchines: [],
+
       startTime: null,
+      
       comite: "",
 
       setComite: (c) => set({ comite: c }),
@@ -134,9 +137,11 @@ export const useAppStore = create<AppState>()(
         if (!startTime) return 0;
         return Math.floor((Date.now() - startTime) / 1000);
       },
+
       datos: [],
       loading: false,
       error: null,
+
       fetchData: async () => {
         set({ loading: true, error: null });
         try {
@@ -155,6 +160,14 @@ export const useAppStore = create<AppState>()(
     }),
     {
       name: "app-store", // nombre en localStorage
+
+       // 👇 SOLO persistir estas propiedades
+      partialize: (state) => ({
+        texto: state.texto,
+        seleccionados: state.seleccionados,
+        parlanchines: state.parlanchines,
+        comite: state.comite,
+      }),
     }
   )
 );
