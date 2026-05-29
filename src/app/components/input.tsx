@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useAppStore } from "../store";
 
-import { IoClose } from "react-icons/io5";
+import {IoClose} from 'react-icons/io5'
 
 export const Input = () => {
   const { texto, setTexto, loading, error, fetchData } = useAppStore();
@@ -25,14 +25,12 @@ export const Input = () => {
         autoFocus
         placeholder="Ingresa algún participante"
       />
-      {"" != texto && (
-        <button
-          className=" text-4xl absolute right-4 top-1/2 -translate-y-1/2 leading-none cursor-pointer"
-          onClick={() => setTexto("")}
-        >
-          <IoClose />
-        </button>
-      )}
+      <button
+        className=" text-4xl absolute right-4 top-1/2 -translate-y-1/2 leading-none cursor-pointer"
+        onClick={() => setTexto("")}
+      >
+        <IoClose />
+      </button>
     </div>
   );
 };
