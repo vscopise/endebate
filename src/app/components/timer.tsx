@@ -25,7 +25,6 @@ export const Timer = () => {
   const timerActivo = seleccionados.length > 0;
 
   const { isSupported, isActive } = useWakeLock(timerActivo);
-  
 
   // crear audio una sola vez
   useEffect(() => {
@@ -42,9 +41,12 @@ export const Timer = () => {
 
   // reproducir sonido cuando llegue el límite del tiempo
   useEffect(() => {
-    const intervenciones = parlanchines.filter(
-      (p) => p.nombre === seleccionados[0],
-    )[0].intervenciones;
+    let intervenciones = 0;
+    if (parlanchines.length > 0) {
+      intervenciones = parlanchines.filter(
+        (p) => p.nombre === seleccionados[0],
+      )[0].intervenciones;
+    }
 
     const debeSonar =
       (intervenciones === 1 && seconds === 240) ||
