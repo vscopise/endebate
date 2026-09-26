@@ -46,7 +46,9 @@ export const useAppStore = create<AppState>()(
       startTime: null,
       
       comite: "",
-
+      
+      datos: [],
+      
       setComite: (c) => set({ comite: c }),
 
       addSeleccionado: (p) => {
@@ -108,8 +110,17 @@ export const useAppStore = create<AppState>()(
       },
 
       delParlanchin: (p) => {
-        const { parlanchines } = get();
-        set({ parlanchines: parlanchines.filter((item) => item.nombre !== p) });
+        const { parlanchines, seleccionados } = get();
+        
+        //console.log({ parlanchines, seleccionados });
+
+        //console.log(p)
+
+        if (p !== seleccionados[0]) {
+          set({ parlanchines: parlanchines.filter((item) => item.nombre !== p) });
+        }
+
+        //set({ parlanchines: parlanchines.filter((item) => item.nombre !== p) });
       },
 
       delIntervencion: (p) => {
@@ -138,7 +149,7 @@ export const useAppStore = create<AppState>()(
         return Math.floor((Date.now() - startTime) / 1000);
       },
 
-      datos: [],
+      
       loading: false,
       error: null,
 
@@ -146,12 +157,8 @@ export const useAppStore = create<AppState>()(
         set({ loading: true, error: null });
         try {
           const response = await fetch(`${ADHERENTES}`);
-
           const csvText = await response.text();
-
           const datos = csvText.split("\r\n").map((row) => row.split(","));
-          // .filter((line) => line.trim() !== ""); // Separa por líneas y elimina
-
           set({ datos: datos, loading: false });
         } catch (err: any) {
           set({ error: err.message, loading: false });

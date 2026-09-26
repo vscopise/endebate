@@ -8,12 +8,12 @@ import {IoClose} from 'react-icons/io5'
 export const Input = () => {
   const { texto, setTexto, loading, error, fetchData } = useAppStore();
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   if (loading) return <p className="text-center">Cargando...</p>;
-  if (error) return <p className="text-center">Error: {error}</p>;
+  if (error) return <p className="text-center">Error: {error}</p>; */
 
   return (
     <div className="p-2 relative">
