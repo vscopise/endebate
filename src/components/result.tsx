@@ -1,7 +1,7 @@
 "use client";
 import { useShallow } from "zustand/shallow";
 
-import { useAppStore } from "../store";
+import { useAppStore } from "@/app/store";
 
 export const Result = () => {
   const { texto, datos, addSeleccionado, addParlanchin, comite } = useAppStore(

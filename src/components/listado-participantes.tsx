@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/shallow";
-import { useAppStore } from "../store";
+import { useAppStore } from "@/app/store";
 import { Timer } from "./timer";
 
 export const ListadoParticipantes = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useShallow } from "zustand/shallow";
-import { useAppStore } from "../store";
+import { useAppStore } from "@/app/store";
 
 export const ListadoParlanchines = () => {
   const { parlanchines, delParlanchin } = useAppStore(

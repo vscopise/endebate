@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useAppStore } from "../store";
-import { useWakeLock } from "../hooks/useWakeLock";
+import { useAppStore } from "@/app/store";
+import { useWakeLock } from "@/app/hooks/useWakeLock";
 import clsx from "clsx";
 
 export const Timer = () => {

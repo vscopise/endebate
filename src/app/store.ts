@@ -2,6 +2,11 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AppState {
+  // Manejo del menu lateral
+  isSideMenuOpen: boolean;
+  openSideMenu: () => void;
+  closeSideMenu: () => void;
+
   texto: string;
   setTexto: (v: string) => void;
   datos: string[][];
@@ -37,6 +42,10 @@ const ADHERENTES = process.env.NEXT_PUBLIC_ADHERENTES;
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
+      isSideMenuOpen: false,
+      openSideMenu: () => set({ isSideMenuOpen: true }),
+      closeSideMenu: () => set({ isSideMenuOpen: false }),
+
       texto: "",
       setTexto: (v) => set({ texto: v }),
 
@@ -44,11 +53,11 @@ export const useAppStore = create<AppState>()(
       parlanchines: [],
 
       startTime: null,
-      
+
       comite: "",
-      
+
       datos: [],
-      
+
       setComite: (c) => set({ comite: c }),
 
       addSeleccionado: (p) => {
@@ -103,7 +112,7 @@ export const useAppStore = create<AppState>()(
             parlanchines: parlanchines.map((el) =>
               el.nombre === p
                 ? { ...el, intervenciones: el.intervenciones + 1 }
-                : el
+                : el,
             ),
           });
         }
@@ -111,13 +120,15 @@ export const useAppStore = create<AppState>()(
 
       delParlanchin: (p) => {
         const { parlanchines, seleccionados } = get();
-        
+
         //console.log({ parlanchines, seleccionados });
 
         //console.log(p)
 
         if (p !== seleccionados[0]) {
-          set({ parlanchines: parlanchines.filter((item) => item.nombre !== p) });
+          set({
+            parlanchines: parlanchines.filter((item) => item.nombre !== p),
+          });
         }
 
         //set({ parlanchines: parlanchines.filter((item) => item.nombre !== p) });
@@ -134,7 +145,7 @@ export const useAppStore = create<AppState>()(
               parlanchines: parlanchines.map((el) =>
                 el.nombre === p
                   ? { ...el, intervenciones: el.intervenciones - 1 }
-                  : el
+                  : el,
               ),
             });
           } else {
@@ -149,7 +160,6 @@ export const useAppStore = create<AppState>()(
         return Math.floor((Date.now() - startTime) / 1000);
       },
 
-      
       loading: false,
       error: null,
 
@@ -168,13 +178,13 @@ export const useAppStore = create<AppState>()(
     {
       name: "app-store", // nombre en localStorage
 
-       // 👇 SOLO persistir estas propiedades
+      // 👇 SOLO persistir estas propiedades
       partialize: (state) => ({
         texto: state.texto,
         seleccionados: state.seleccionados,
         parlanchines: state.parlanchines,
         comite: state.comite,
       }),
-    }
-  )
+    },
+  ),
 );

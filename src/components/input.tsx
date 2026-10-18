@@ -1,19 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
-import { useAppStore } from "../store";
+import { useAppStore } from "@/app/store";
 
 import {IoClose} from 'react-icons/io5'
 
 export const Input = () => {
-  const { texto, setTexto, loading, error, fetchData } = useAppStore();
-
-  /* useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  if (loading) return <p className="text-center">Cargando...</p>;
-  if (error) return <p className="text-center">Error: {error}</p>; */
+  const { texto, setTexto } = useAppStore();
 
   return (
     <div className="p-2 relative">
