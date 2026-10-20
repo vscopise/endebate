@@ -2,6 +2,13 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AppState {
+  //tiempo de la primera intervención en minutos
+  primeraIntervencion: string;
+  setPrimeraIntervencion: (v: string) => void;
+  //tiempo de la segunda intervención en minutos
+  segundaIntervencion: string;
+  setSegundaIntervencion: (v: string) => void;
+
   // Manejo del menu lateral
   isSideMenuOpen: boolean;
   openSideMenu: () => void;
@@ -42,6 +49,12 @@ const ADHERENTES = process.env.NEXT_PUBLIC_ADHERENTES;
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
+      primeraIntervencion: '5',
+      setPrimeraIntervencion: (v) => set({ primeraIntervencion: v }),
+
+      segundaIntervencion: '3',
+      setSegundaIntervencion: (v) => set({ segundaIntervencion: v }),
+
       isSideMenuOpen: false,
       openSideMenu: () => set({ isSideMenuOpen: true }),
       closeSideMenu: () => set({ isSideMenuOpen: false }),
@@ -184,6 +197,8 @@ export const useAppStore = create<AppState>()(
         seleccionados: state.seleccionados,
         parlanchines: state.parlanchines,
         comite: state.comite,
+        primeraIntervencion: state.primeraIntervencion,
+        segundaIntervencion: state.segundaIntervencion,
       }),
     },
   ),

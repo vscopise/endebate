@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useAppStore } from "@/app/store";
-import { useWakeLock } from "@/app/hooks/useWakeLock";
 import clsx from "clsx";
 
 export const Timer = () => {
@@ -11,20 +10,17 @@ export const Timer = () => {
   const parlanchines = useAppStore((s) => s.parlanchines);
   const seleccionados = useAppStore((s) => s.seleccionados);
 
+  const primeraIntervencion = +useAppStore((s) => s.primeraIntervencion);
+
+  const segundaIntervencion = +useAppStore((s) => s.segundaIntervencion);
+
   const [seconds, setSeconds] = useState(getSeconds());
 
   // referencia persistente del audio
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  //desbloquear el audio después de la primera interacción del usuario
-
   // evitar reproducir varias veces el mismo segundo
   const ultimoSonido = useRef<number | null>(null);
-
-  // Wake Lock activo solo si hay oradores
-  const timerActivo = seleccionados.length > 0;
-
-  const { isSupported, isActive } = useWakeLock(timerActivo);
 
   // crear audio una sola vez
   useEffect(() => {
@@ -41,20 +37,18 @@ export const Timer = () => {
 
   // reproducir sonido cuando llegue el límite del tiempo
   useEffect(() => {
-    let intervenciones = 0;
-    if (parlanchines.length > 0) {
-      intervenciones = parlanchines.filter(
-        (p) => p.nombre === seleccionados[0],
-      )[0].intervenciones;
+    let tiempoIntervencion = primeraIntervencion;
+    if (
+      parlanchines.filter((p) => p.nombre === seleccionados[0])[0]
+        .intervenciones > 1
+    ) {
+      tiempoIntervencion = segundaIntervencion;
     }
 
     const debeSonar =
-      (intervenciones === 1 && seconds === 240) ||
-      (intervenciones === 1 && seconds === 300) ||
-      (intervenciones === 1 && seconds > 300 && seconds % 5 === 0) ||
-      (intervenciones > 1 && seconds === 120) ||
-      (intervenciones > 1 && seconds === 180) ||
-      (intervenciones > 1 && seconds > 180 && seconds % 5 === 0);
+      seconds === (tiempoIntervencion - 1) * 60 || // 1 minuto restante de la intervención
+      seconds === tiempoIntervencion * 60 || // intervención finalizada
+      (seconds >= tiempoIntervencion * 60 && seconds % 5 === 0); // cada 5 segundos después de la intervención
 
     if (debeSonar && ultimoSonido.current !== seconds) {
       ultimoSonido.current = seconds;
@@ -69,13 +63,21 @@ export const Timer = () => {
     }
   }, [seconds]);
 
+  // Si ya intervino tomar la segunda intervención, si no la primera
+  let tiempoIntervencion = parlanchines.filter((p) => p.nombre === seleccionados[0])[0]
+      .intervenciones > 1 ? segundaIntervencion : primeraIntervencion;
+
   return (
     <div
       className={clsx(
         `w-auto px-4 text-white rounded-xl sm:ml-2 sm:px-2 text-4xl`,
-        { "bg-green-600": seconds <= 180 },
-        { "bg-amber-600": 180 < seconds && seconds <= 300 },
-        { "bg-red-600": 300 < seconds },
+        { "bg-green-600": seconds <= (tiempoIntervencion - 1) * 60 },
+        {
+          "bg-amber-600":
+            (tiempoIntervencion - 1) * 60 <= seconds &&
+            seconds < tiempoIntervencion * 60,
+        },
+        { "bg-red-600": tiempoIntervencion * 60 <= seconds },
       )}
     >
       {`${Math.floor(seconds / 60)}:${seconds % 60}`.replace(

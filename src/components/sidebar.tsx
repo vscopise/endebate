@@ -35,7 +35,7 @@ export const Sidebar = () => {
           <Link
             href="/"
             onClick={() => closeSideMenu()}
-            className="flex items-center p-1 hover:bg-gray-100 rounded transition-all"
+            className="flex items-center px-1 py-5 hover:bg-gray-100 rounded transition-all"
           >
             <IoHomeOutline size={30} />
             <span className="ml-3">Inicio</span>
@@ -43,7 +43,7 @@ export const Sidebar = () => {
           <Link
             href="/ajustes"
             onClick={() => closeSideMenu()}
-            className="flex items-center p-1 hover:bg-gray-100 rounded transition-all"
+            className="flex items-center px-1 py-5 hover:bg-gray-100 rounded transition-all"
           >
             <IoSettingsOutline size={30} />
             <span className="ml-3">Ajustes</span>

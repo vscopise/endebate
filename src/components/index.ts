@@ -5,5 +5,6 @@ export * from './menu-button';
 export * from './result';
 export * from './select-comite';
 export * from './sidebar';
+export * from './tiempo-intervenciones'
 
 
