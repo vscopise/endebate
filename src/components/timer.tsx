@@ -16,6 +16,8 @@ export const Timer = () => {
 
   const [seconds, setSeconds] = useState(getSeconds());
 
+  const playSound = useAppStore((s) => s.playSound);
+
   // referencia persistente del audio
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -50,7 +52,7 @@ export const Timer = () => {
       seconds === tiempoIntervencion * 60 || // intervención finalizada
       (seconds >= tiempoIntervencion * 60 && seconds % 5 === 0); // cada 5 segundos después de la intervención
 
-    if (debeSonar && ultimoSonido.current !== seconds) {
+    if (debeSonar && playSound && ultimoSonido.current !== seconds) {
       ultimoSonido.current = seconds;
 
       if (audioRef.current) {

@@ -1,4 +1,4 @@
-import { SelectComite, TiempoIntervenciones } from "@/components/";
+import { SelectComite, SetPlaysound, TiempoIntervenciones } from "@/components/";
 import Link from "next/link";
 
 export default function AjustesPage() {
@@ -6,6 +6,7 @@ export default function AjustesPage() {
     <div className="flex items-center flex-col min-h-1/2 max-h-[80vh] overflow-y-auto py-3">
       <SelectComite />
       <TiempoIntervenciones />
+      <SetPlaysound />
       <div className="py-2 px-5 w-full mb-2">
         <hr className="w-full border-gray-300" />
       </div>

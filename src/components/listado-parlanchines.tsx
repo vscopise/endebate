@@ -15,7 +15,7 @@ export const ListadoParlanchines = () => {
 
   return (
     <div className="overflow-y-auto bg-amber-50 border border-amber-500 rounded-xl mt-2 mx-2">
-      <p className="font-bold text-amber-500 text-center py-1">Ya tomaron la palabra:</p>
+      <p className="font-bold text-amber-500 text-center py-1 px-5">Ya tomaron la palabra:</p>
       <div className="flex w-full flex-wrap justify-center gap-2  px-2 pb-2">
         {parlanchines.map((p, index) => (
           <div

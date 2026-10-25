@@ -14,6 +14,10 @@ interface AppState {
   openSideMenu: () => void;
   closeSideMenu: () => void;
 
+  // Campana de aviso
+  playSound: boolean;
+  togglePlaySound: () => void;
+
   texto: string;
   setTexto: (v: string) => void;
   datos: string[][];
@@ -58,6 +62,9 @@ export const useAppStore = create<AppState>()(
       isSideMenuOpen: false,
       openSideMenu: () => set({ isSideMenuOpen: true }),
       closeSideMenu: () => set({ isSideMenuOpen: false }),
+
+      playSound: true,
+      togglePlaySound: () => set((state) => ({ playSound: !state.playSound })),
 
       texto: "",
       setTexto: (v) => set({ texto: v }),
@@ -199,6 +206,7 @@ export const useAppStore = create<AppState>()(
         comite: state.comite,
         primeraIntervencion: state.primeraIntervencion,
         segundaIntervencion: state.segundaIntervencion,
+        playSound: state.playSound,
       }),
     },
   ),
